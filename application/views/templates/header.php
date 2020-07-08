@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Data Tables</title>
+    <title>Seguimiento</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -38,10 +38,11 @@
     <header class="main-header">
         <!-- Logo -->
         <a href="<?=base_url()?>index2.html" class="logo">
+<!--            <img src="--><?//=base_url()?><!--dist/img/logo.png" width="50">-->
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>A</b>LT</span>
+            <span class="logo-mini"><b>S</b>M</span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>Admin</b>LTE</span>
+            <span class="logo-lg"><b>Segui</b>miento</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top">
@@ -270,35 +271,34 @@
                                 </p>
                             </li>
                             <!-- Menu Body -->
-                            <li class="user-body">
-                                <div class="row">
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Followers</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Sales</a>
-                                    </div>
-                                    <div class="col-xs-4 text-center">
-                                        <a href="#">Friends</a>
-                                    </div>
-                                </div>
-                                <!-- /.row -->
-                            </li>
+<!--                            <li class="user-body">-->
+<!--                                <div class="row">-->
+<!--                                    <div class="col-xs-4 text-center">-->
+<!--                                        <a href="#">Followers</a>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-xs-4 text-center">-->
+<!--                                        <a href="#">Sales</a>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-xs-4 text-center">-->
+<!--                                        <a href="#">Friends</a>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </li>-->
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                    <a href="<?=base_url()?>Profile" class="btn btn-default btn-flat">Cuenta</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="<?=base_url()?>Welcome/logout" class="btn btn-default btn-flat">Sign out</a>
+                                    <a href="<?=base_url()?>Welcome/logout" class="btn btn-default btn-flat">Salir</a>
                                 </div>
                             </li>
                         </ul>
                     </li>
                     <!-- Control Sidebar Toggle Button -->
-                    <li>
-                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                    </li>
+<!--                    <li>-->
+<!--                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>-->
+<!--                    </li>-->
                 </ul>
             </div>
         </nav>
@@ -313,7 +313,7 @@
                     <img src="<?=base_url()?>dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p><?=$_SESSION['nombre']?></p>
+                    <p><?=$_SESSION['nombrecompleto']?></p>
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>
@@ -496,9 +496,9 @@
 <!--                </li>-->
 <!--                <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>-->
                 <li class="header">LABELS</li>
-                <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-                <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-                <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+                <li><a href="<?=base_url()?>Welcome/logout"><i class="fa fa-circle-o text-red"></i> <span>Salir</span></a></li>
+<!--                <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>-->
+                <li><a href="<?=base_url()?>Profile"><i class="fa fa-circle-o text-aqua"></i> <span>Cuentas</span></a></li>
             </ul>
         </section>
         <!-- /.sidebar -->

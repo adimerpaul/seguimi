@@ -95,6 +95,7 @@
                                                             <th>Fecha</th>
                                                             <th>Nombre</th>
                                                             <th>Lugar</th>
+                                                            <th>personal</th>
                                                             <th>Estado</th>
                                                             <th>Detalle</th>
                                                         </tr>
@@ -106,7 +107,7 @@
                                                 <form class="form-horizontal" id="historia">
                                                     <div class="box-body">
                                                         <div class="form-group">
-                                                            <label for="Lugar" class="col-sm-1 control-label">Lugar</label>
+                                                            <label for="lugar" class="col-sm-1 control-label">Lugar</label>
                                                             <div class="col-sm-2">
                                                                 <select name="lugar" id="lugar" class="form-control" required>
                                                                     <option value="">Selecionar....</option>
@@ -117,7 +118,19 @@
                                                                     <option value="ESPEC. PUBLICOS">ESPEC. PUBLICOS</option>
                                                                 </select>
                                                             </div>
-                                                            <label for="Lugar" class="col-sm-1 control-label">Estado</label>
+                                                            <label for="personal" class="col-sm-1 control-label">Personal</label>
+                                                            <div class="col-sm-2">
+                                                                <select name="personal" id="personal" class="form-control" required>
+                                                                    <option value="">Selecionar....</option>
+                                                                    <?php
+                                                                    $query=$this->db->query("SELECT * FROM users WHERE tipo='RECEPCIONISTA'");
+                                                                    foreach ($query->result() as $row){
+                                                                        echo "<option value='$row->nombrecompleto'>$row->nombrecompleto</option>";
+                                                                    }
+                                                                    ?>
+                                                                </select>
+                                                            </div>
+                                                            <label for="estado" class="col-sm-1 control-label">Estado</label>
                                                             <div class="col-sm-2">
                                                                 <select name="estado" id="estado" class="form-control" required>
                                                                     <option value="">Selecionar....</option>
@@ -126,7 +139,7 @@
                                                                 </select>
                                                             </div>
                                                             <label for="Lugar" class="col-sm-1 control-label">Detalle</label>
-                                                            <div class="col-sm-5">
+                                                            <div class="col-sm-2">
                                                                 <textarea name="detalle" id="detalle" class="form-control"></textarea>
                                                             </div>
                                                         </div>
@@ -154,33 +167,37 @@
                 <div class="box-body">
                     <script >
                         var id;
+                        function datosfun(id) {
+                            $('#contenido').html('');
+                            $.ajax({
+                                url:'Admin/historia/'+id,
+                                success:function (e) {
+                                    let dat=JSON.parse(e);
+                                    // console.log(dat);
+                                    dat.forEach(res=>{
+                                        $('#contenido').append("<tr>" +
+                                            "<td>"+res.fecha+"</td>" +
+                                            "<td>"+res.nombre+"</td>" +
+                                            "<td>"+res.lugar+"</td>" +
+                                            "<td>"+res.personal+"</td>" +
+                                            "<td><span class='label label-success'>"+res.estado+"</span></td>" +
+                                            "<td>"+res.detalle+"</td>" +
+                                            "</tr>");
+                                    })
+                                }
+                            })
+                        }
                         function historial(ide) {
                             id=ide;
                             // console.log(id);
-                            $('#contenido').html('');
+
                             $.ajax({
                                 url:'Admin/datos/'+id,
                                 success:function (e) {
                                     // console.log(e);
                                     let dat=JSON.parse(e);
                                     $('#tramite').html(e);
-                                    $.ajax({
-                                        url:'Admin/historia/'+id,
-                                        success:function (e) {
-                                            let dat=JSON.parse(e);
-                                            // console.log(dat);
-                                            dat.forEach(res=>{
-                                                $('#contenido').append("<tr>" +
-                                                                        "<td>"+res.fecha+"</td>" +
-                                                                        "<td>"+res.nombre+"</td>" +
-                                                                        "<td>"+res.lugar+"</td>" +
-                                                                        "<td><span class='label label-success'>"+res.estado+"</span></td>" +
-                                                                        "<td>"+res.detalle+"</td>" +
-                                                                        "</tr>");
-                                            })
-                                        }
-                                    })
-
+                                    datosfun(id);
                                 }
                             })
                         }
@@ -197,7 +214,8 @@
                         </thead>
                         <tbody>
                         <?php
-                        $query=$this->db->query("SELECT * FROM tramite");
+                        //"SELECT * FROM tramite WHERE idusuario='".$_SESSION['iduser']."'"
+                        $query=$this->db->query("SELECT * FROM tramite ");
                             foreach ($query->result() as $row){
                                 echo "<tr>
                                         <td>$row->numero</td>
@@ -242,6 +260,7 @@
                 estado:$('#estado').val(),
                 lugar:$('#lugar').val(),
                 detalle:$('#detalle').val(),
+                personal:$('#personal').val(),
             }
             // console.log(datos);
             $.ajax({
@@ -250,6 +269,9 @@
                 type:'POST',
                 success:function (e) {
                     console.log(e);
+                    if (e=="1"){
+                        datosfun(id);
+                    }
                 }
             })
             return false;

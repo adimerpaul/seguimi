@@ -30,7 +30,9 @@ class Welcome extends CI_Controller {
 	    if ($query->num_rows()==1){
 	        $row=$query->row();
 	        $_SESSION['nombre']=$row->nombre;
+            $_SESSION['nombrecompleto']=$row->nombrecompleto;
             $_SESSION['iduser']=$row->iduser;
+            $_SESSION['tipo']=$row->tipo;
             header('Location: '.base_url().'Admin');
         }else{
             header('Location: '.base_url());
@@ -38,6 +40,24 @@ class Welcome extends CI_Controller {
     }
     public function logout(){
 	    session_destroy();
+        header('Location: '.base_url());
+    }
+    public function register(){
+        $this->load->view('register');
+    }
+    public function insert(){
+        $nombre= strtoupper( $_POST['nombre']);
+        $clave=$_POST['password'];
+        $unidad=$_POST['unidad'];
+        $nombrecompleto=$_POST['nombrecompleto'];
+        $celular=$_POST['celular'];
+        $this->db->query("INSERT INTO users SET 
+nombre='$nombre',
+clave='$clave',
+unidad='$unidad',
+nombrecompleto='$nombrecompleto',
+celular='$celular'
+");
         header('Location: '.base_url());
     }
 }

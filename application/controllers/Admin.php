@@ -32,7 +32,7 @@ numero='$numero'
         echo json_encode($query->result_array());
     }
     public function historia($id){
-        $query=$this->db->query("SELECT h.fecha,t.nombre,h.lugar,h.estado,h.detalle 
+        $query=$this->db->query("SELECT h.fecha,t.nombre,h.lugar,h.estado,h.detalle,h.personal
 FROM tramite t 
 INNER JOIN historia h ON t.idtramite=h.idtramite 
 WHERE h.idtramite=$id");
@@ -44,13 +44,16 @@ WHERE h.idtramite=$id");
         $lugar=$_POST['lugar'];
         $iduser=$_SESSION['iduser'];
         $detalle=$_POST['detalle'];
+        $personal=$_POST['personal'];
         $this->db->query("INSERT INTO historia SET 
 idtramite='$idtramite',
 estado='$estado',
 lugar='$lugar',
 iduser='$iduser',
-detalle='$detalle'
+detalle='$detalle',
+personal='$personal'
 ");
+        echo 1;
 //        echo 1;
     }
 }
